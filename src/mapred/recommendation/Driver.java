@@ -1,3 +1,4 @@
+
 /* author: Fangxiaoyu Feng (fangxiaf) */
 
 package mapred.recommendation;
@@ -23,6 +24,8 @@ public class Driver {
 
 		getUserverVector(input, tmpdir + "/user_vector");
 
+		getCooccurrence(input, tmpdir + "/co_occurrence");
+
 	}
 
 	private static void getUserverVector(String input, String output)
@@ -34,5 +37,16 @@ public class Driver {
 		job.setMapOutputClasses(Text.class, Text.class);
 
 		job.run();
-	}	
+	}
+
+	private static void getCooccurrence(String input, String output)
+			throws IOException, ClassNotFoundException, InterruptedException {
+		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+				"Compute Co-occurrence");
+
+		job.setClasses(CooccurrenceMapper.class, CooccurrenceReducer.class, null);
+		job.setMapOutputClasses(Text.class, Text.class);
+
+		job.run();
+	}
 }
