@@ -1,27 +1,25 @@
-/* author: Fangxiaoyu Feng (fangxiaf) */
-
 package mapred.recommendation;
 
 import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
-
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class UserVectorMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class TransposeMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
+
 		String line = value.toString();
-		//String[] words = Tokenizer.tokenize(line);
+		String[] split = line.split("\\s+");
+		String[] uids = split[1].split(";");
 
-		String[] split = line.split(": ");
-		
-		if( split.length > 1 ){
-			context.write(new Text(split[0]), new Text(split[1]));
+		for (String uid : uids) {
+			String[] uidCount = uid.split(":");
+			context.write(new Text(uidCount[0]), new Text(key.toString() + ":"
+					+ uidCount[1]));
 		}
-
 	}
 }
