@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-        Ant build file 
- -->
+<!-- Ant build file  -->
 
 <project name="18645 Term Project" default="dist" basedir="." >
 
@@ -17,12 +15,10 @@
   <property name="project.name" value="18645-term-proj"/>
   <buildnumber file="build.num"/>
 
-
   <path id="classpath">
     <pathelement location="lib/hadoop-core-1.0.3.jar"/>
     <pathelement location="lib/commons-cli-1.2.jar"/>
   </path>
-
 
   <!-- Initialize the build and create the directory -->
   <target name="init">
@@ -58,13 +54,10 @@
     <jar jarfile="${build.jar}" basedir="${build}" manifest="MANIFEST.MF"/>    	
   </target>
 
-
   <target name="clean"
     description="clean up" >
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
     <delete file="MANIFEST.MF"/>
   </target>
-
-
 </project>
