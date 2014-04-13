@@ -33,6 +33,9 @@ public class Driver {
 		//
 		// getUserVectorSplitter(tmpdir + "/user_vector", tmpdir+
 		// "/splitted_user_vector" );
+        
+        
+     /*   getRecommendation(tmpdir + "/form Andi's output", output);*/
 
 	}
 
@@ -89,6 +92,17 @@ public class Driver {
 		job.setClasses(UserVectorSplitterMapper.class, null, null);
 		job.setMapOutputClasses(Text.class, Text.class);
 
+		job.run();
+	}
+    
+    private static void getRecommendation(String input, String output)
+            throws IOException, ClassNotFoundException, InterruptedException {
+		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+                                            "Compute Recommendation");
+        
+		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, null);
+		job.setMapOutputClasses(Text.class, Text.class);
+        
 		job.run();
 	}
 }
