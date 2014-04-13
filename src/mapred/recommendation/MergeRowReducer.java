@@ -24,7 +24,7 @@ public class MergeRowReducer extends Reducer<Text, Text, Text, Text> {
 			String[] split = item.toString().split("#");
 			if (split[0].equals("U") ) {
 				segments[0] = split[1];
-			else if (split[0].equals("I") ) {
+                        } else if (split[0].equals("I") ) {
 				segments[1] = split[1];
 			} else throw new IOException("Pair neither starts with U# nor I#");
 		}

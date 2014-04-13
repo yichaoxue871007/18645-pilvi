@@ -25,7 +25,7 @@ public class MergeRowMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		if (dirname.startsWith("tr") ) { /* transposed, U */
 			context.write(new Text(split[0]), new Text("U#" + split[1]) );
-		} else (dirname.startsWith("co") ) { /* co-occurrence, I */
+		} else if (dirname.startsWith("co") ) { /* co-occurrence, I */
 			context.write(new Text(split[0]), new Text("I#" + split[1]) );
 		} else throw new IOException("Folder neither starts with tr or co");
 	}
