@@ -18,7 +18,7 @@ public class TransposeMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		for (String uid : uids) {
 			String[] uidCount = uid.split(":");
-			context.write(new Text(uidCount[0]), new Text(key.toString() + ":"
+			context.write(new Text(uidCount[0]), new Text(split[0] + ":"
 					+ uidCount[1]));
 		}
 	}

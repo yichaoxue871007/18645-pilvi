@@ -23,10 +23,10 @@ public class MergeRowMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		String dirname = ( (FileSplit)context.getInputSplit() ).getPath().getParent().getName();
 
-		if (dirname.startsWith("tr") ) { /* transposed, U */
+		if (dirname.startsWith("it") ) { /* item_vector, U */
 			context.write(new Text(split[0]), new Text("U#" + split[1]) );
 		} else if (dirname.startsWith("co") ) { /* co-occurrence, I */
 			context.write(new Text(split[0]), new Text("I#" + split[1]) );
-		} else throw new IOException("Folder neither starts with tr or co");
+		} else throw new IOException("Folder neither starts with it or co");
 	}
 }

@@ -64,8 +64,10 @@ public class Optimizedjob extends Job {
 		setOutputFormatClass(TextOutputFormat.class);
 
 		// Input file/dir
-		for (String input : inputs)
+		for (String input : inputs) {
+                        System.err.println("                                    added [" + input + "]");
 			TextInputFormat.addInputPath(this, new Path(input));
+                }
 		TextOutputFormat.setOutputPath(this, new Path(output));
 
 		FileSystem fs = FileSystem.get(URI.create(output), conf);

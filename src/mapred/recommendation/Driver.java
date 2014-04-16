@@ -21,25 +21,29 @@ public class Driver {
 		String output = parser.get("output");
 		String tmpdir = parser.get("tmpdir");
 
-		getItemVector(input, tmpdir + "/item_vector");
+		getItemVector( input,
+                               tmpdir + "/item_vector" );
 
-		getTrasposedVector(tmpdir + "/item_vector", tmpdir
-				+ "/trasposed_vector");
+		gettransposedVector( tmpdir + "/item_vector",
+                                    tmpdir + "/transposed_vector" );
 
-		getCooccurrence(tmpdir + "/trasposed_vector", tmpdir + "/co_occurrence");
+		getCooccurrence( tmpdir + "/transposed_vector",
+                                 tmpdir + "/co_occurrence" );
 
-		mergeMatrixRow( tmpdir + "/transposed_vector",
+		mergeMatrixRow( tmpdir + "/item_vector",
 				tmpdir + "/co_occurrence",
 				tmpdir + "/merged" );
 
-		// getCooccurrenceColumn( tmpdir + "/co_occurrence", tmpdir +
-		// "/co_occurrence_column");
-		//
-		// getUserVectorSplitter(tmpdir + "/user_vector", tmpdir+
-		// "/splitted_user_vector" );
-        
-        
-     /*   getRecommendation(tmpdir + "/form Andi's output", output);*/
+                /* old steps
+		getCooccurrenceColumn( tmpdir + "/co_occurrence",
+                                       tmpdir + "/co_occurrence_column" );
+
+		getUserVectorSplitter( tmpdir + "/user_vector",
+                                       tmpdir + "/splitted_user_vector" );
+                */
+
+                getRecommendation( tmpdir + "/merged",
+                                   output );
 
 	}
         /* Step 0 */
@@ -54,7 +58,7 @@ public class Driver {
 		job.run();
 	}
         /* Step 1 */
-	private static void getTrasposedVector(String input, String output)
+	private static void gettransposedVector(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
 				"Transpose input matrix");
@@ -90,6 +94,7 @@ public class Driver {
 		job.run();
 	}
 
+        /* Step old 4 UNUSED */
 	private static void getCooccurrenceColumn(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
@@ -101,6 +106,7 @@ public class Driver {
 		job.run();
 	}
 
+        /* Step old 5 UNUSED */
 	private static void getUserVectorSplitter(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
@@ -111,9 +117,9 @@ public class Driver {
 
 		job.run();
 	}
-    
-    private static void getRecommendation(String input, String output)
-            throws IOException, ClassNotFoundException, InterruptedException {
+        /* Step 4 */
+        private static void getRecommendation(String input, String output)
+                throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
                                             "Compute Recommendation matrix");
         
