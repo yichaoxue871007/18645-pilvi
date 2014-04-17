@@ -17,6 +17,8 @@ public class RecVectorMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		String[] keyvalues = line.split("\t");
 
+		if (keyvalues.length < 2) return;
+
 		String combinedvalues = keyvalues[1];
 		String[] valuesArray = combinedvalues.split("#");
 		String uservecString = valuesArray[0];
