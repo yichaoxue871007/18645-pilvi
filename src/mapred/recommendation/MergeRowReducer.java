@@ -29,6 +29,7 @@ public class MergeRowReducer extends Reducer<Text, Text, Text, Text> {
 			} else throw new IOException("Pair neither starts with U# nor I#");
 		}
 
-		context.write(key, new Text(segments[0] + "#" + segments[1]) );
+                if (segments[0] != null && segments[1] != null )
+                    context.write(key, new Text(segments[0] + "#" + segments[1]) );
 	}
 }
