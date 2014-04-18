@@ -9,9 +9,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 /**
  * 
  * @author yichaox
+ * @author andin
  * 
  */
 public class CooccurrenceMapper extends Mapper<LongWritable, Text, Text, Text> {
+
+        public final int PrefMatrixItemsRowMaxLength = 2000;
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
@@ -20,6 +23,8 @@ public class CooccurrenceMapper extends Mapper<LongWritable, Text, Text, Text> {
 		String line = value.toString();
 		String[] split = line.split("\\s+");
 		String[] items = split[1].split(";");
+
+                if (items.length > PrefMatrixItemsRowMaxLength) return;
 
 		for (int i = 0; i < items.length; i++) {
 			String[] i1 = items[i].split(":");
