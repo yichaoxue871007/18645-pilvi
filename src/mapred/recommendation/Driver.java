@@ -42,7 +42,7 @@ public class Driver {
                                        tmpdir + "/splitted_user_vector" );
                 */
 
-                getRecommendation( tmpdir + "/merged",
+        getRecommendation( tmpdir + "/merged",
                                    output );
 
 	}
@@ -94,6 +94,18 @@ public class Driver {
 		job.run();
 	}
 
+        /* Step 4 */
+    private static void getRecommendation(String input, String output)
+                throws IOException, ClassNotFoundException, InterruptedException {
+		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+                                            "Compute Recommendation matrix");
+        
+		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, null);
+		job.setMapOutputClasses(Text.class, Text.class);
+        
+		job.run();
+	}
+	
         /* Step old 4 UNUSED */
 	private static void getCooccurrenceColumn(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
@@ -115,17 +127,6 @@ public class Driver {
 		job.setClasses(UserVectorSplitterMapper.class, null, null);
 		job.setMapOutputClasses(Text.class, Text.class);
 
-		job.run();
-	}
-        /* Step 4 */
-        private static void getRecommendation(String input, String output)
-                throws IOException, ClassNotFoundException, InterruptedException {
-		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-                                            "Compute Recommendation matrix");
-        
-		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, null);
-		job.setMapOutputClasses(Text.class, Text.class);
-        
 		job.run();
 	}
 }
