@@ -1,3 +1,5 @@
+单步执行最后一个MapReducer的log：
+
 Starting......
                                     added [/tmp/merged]
 14/04/21 03:07:35 INFO s3native.NativeS3FileSystem: Delete called for 's3n://fangxiaoyufeng/output' but file does not exist, so returning false
@@ -223,3 +225,12 @@ Starting......
 14/04/21 10:19:25 INFO mapred.JobClient:     Map output records=6349379
 Runtime for Job Compute Recommendation matrix: 25910034 ms
 Runtime for program recommendation: 25912437 ms
+
+
+加上分开执行的前面几步：
+Runtime for Job Compute User Vector: 68050 ms
+Runtime for Job Transpose input matrix: 51450 ms
+Runtime for Job Compute Co-occurrence: 988727 ms
+Runtime for Job Merge rows from Step 1 and Step 2: 156742 ms
+Runtime for Job Compute Recommendation matrix: 25910034 ms
+Runtime for program recommendation: 27177406 ms
