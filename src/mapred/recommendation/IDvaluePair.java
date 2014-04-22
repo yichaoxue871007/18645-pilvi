@@ -1,5 +1,11 @@
 package mapred.recommendation;
 
+/**
+ * 
+ * @author Fangxiaoyu Feng
+ * 
+ */
+
 public class IDvaluePair {
 	public String ID;
 	public int value;

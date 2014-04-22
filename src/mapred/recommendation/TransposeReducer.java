@@ -13,7 +13,7 @@ public class TransposeReducer extends Reducer<Text, Text, Text, Text> {
 
 		StringBuilder sb = new StringBuilder();
 		for (Text item : value) {
-			sb.append(item.toString() + ";");
+			sb.append(item.toString() + ":");
 		}
 
 		context.write(key, new Text(sb.toString()));

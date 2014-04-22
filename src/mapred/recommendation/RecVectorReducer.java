@@ -1,5 +1,3 @@
-/* author: Fangxiaoyu Feng (fangxiaf) */
-
 package mapred.recommendation;
 
 import java.io.IOException;
@@ -10,6 +8,12 @@ import java.util.PriorityQueue;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+
+/**
+ * 
+ * @author Fangxiaoyu Feng
+ * 
+ */
 
 public class RecVectorReducer extends Reducer<Text, Text, Text, Text> {
 	
@@ -23,15 +27,19 @@ public class RecVectorReducer extends Reducer<Text, Text, Text, Text> {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();		
 		
 	    for( Text partialProduct : value ){
-			String[] partialProductArray = partialProduct.toString().split(";");
+			String[] partialProductArray = partialProduct.toString().split(":");
 
-	        for(int i = 0; i < partialProductArray.length; i++){
-    	    	String[] temp = partialProductArray[i].split(":");
-    	    	if(!map.containsKey(temp[0])){
-    	    		map.put(temp[0], 0);
-    	    	}
-    	    	int partialV = Integer.parseInt(temp[1]);
-    	    	map.put(temp[0], map.get(temp[0]) + partialV);
+	        for(int i = 0; i < partialProductArray.length; i+=2){
+                String itemid = partialProductArray[i];
+
+                int partialV = Integer.parseInt(partialProductArray[i+1]);
+
+    	    	if(!map.containsKey(itemid)){
+    	    		map.put(itemid, partialV);
+    	    	}else{
+        	    	map.put(itemid, map.get(itemid) + partialV);
+                }
+
         	}
 		}
 	    

@@ -10,11 +10,11 @@ import org.apache.hadoop.mapreduce.Mapper;
  * 
  * @author yichaox
  * @author andin
- * 
+ * @author Fangxiaoyu Feng
  */
 public class CooccurrenceMapper extends Mapper<LongWritable, Text, Text, Text> {
 
-        public final int PrefMatrixItemsRowMaxLength = 2000;
+    public final int PrefMatrixItemsRowMaxLength = 2000;
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context)
@@ -22,19 +22,17 @@ public class CooccurrenceMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		String line = value.toString();
 		String[] split = line.split("\\s+");
-		String[] items = split[1].split(";");
+		String[] items = split[1].split(":");
 
-                if (items.length > PrefMatrixItemsRowMaxLength) return;
+        if (items.length > PrefMatrixItemsRowMaxLength) return;
 
-		for (int i = 0; i < items.length; i++) {
-			String[] i1 = items[i].split(":");
-			int count1 = Integer.parseInt(i1[1]);
+		for (int i = 0; i < items.length; i+=2) {
+			int count1 = Integer.parseInt(items[i+1]);
 
-			for (int j = 0; j < items.length; j++) {
-				String[] i2 = items[j].split(":");
-				int count2 = Integer.parseInt(i2[1]);
+			for (int j = 0; j < items.length; j+=2) {
+				int count2 = Integer.parseInt(items[j+1]);
 
-				context.write(new Text(i1[0]), new Text(i2[0] + ":" + count1
+				context.write(new Text(items[i]), new Text(items[j] + ":" + count1
 						* count2));
 			}
 		}

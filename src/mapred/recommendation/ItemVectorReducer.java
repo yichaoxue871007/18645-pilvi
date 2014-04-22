@@ -32,7 +32,7 @@ public class ItemVectorReducer extends Reducer<Text, Text, Text, Text> {
 
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<String, Integer> e : counts.entrySet())
-			sb.append(e.getKey() + ":" + e.getValue() + ";");
+			sb.append(e.getKey() + ":" + e.getValue() + ":");
 		context.write(key, new Text(sb.toString()));
 	}
 }

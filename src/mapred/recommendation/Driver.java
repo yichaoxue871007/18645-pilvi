@@ -34,14 +34,6 @@ public class Driver {
 				tmpdir + "/co_occurrence",
 				tmpdir + "/merged" );
 
-                /* old steps
-		getCooccurrenceColumn( tmpdir + "/co_occurrence",
-                                       tmpdir + "/co_occurrence_column" );
-
-		getUserVectorSplitter( tmpdir + "/user_vector",
-                                       tmpdir + "/splitted_user_vector" );
-                */
-
         getRecommendation( tmpdir + "/merged",
                                    output );
 
@@ -75,7 +67,7 @@ public class Driver {
 				"Compute Co-occurrence");
 
 		job.setClasses(CooccurrenceMapper.class, CooccurrenceReducer.class,
-				null);
+				CooccurrenceCombiner.class);
 		job.setMapOutputClasses(Text.class, Text.class);
 
 		job.run();
@@ -100,9 +92,9 @@ public class Driver {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
                                             "Compute Recommendation matrix");
         
-		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, null);
+		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, RecVectorCombiner.class);
 		job.setMapOutputClasses(Text.class, Text.class);
-        
+
 		job.run();
 	}
 	
