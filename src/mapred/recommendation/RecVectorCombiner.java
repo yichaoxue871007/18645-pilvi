@@ -1,10 +1,8 @@
 package mapred.recommendation;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.PriorityQueue;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;

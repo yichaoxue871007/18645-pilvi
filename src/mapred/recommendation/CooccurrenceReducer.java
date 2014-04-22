@@ -33,19 +33,6 @@ public class CooccurrenceReducer extends Reducer<Text, Text, Text, Text> {
 			}
 		}
 
-		/*
-		for (Text item : value) {
-			String[] split = item.toString().split(":");
-			int countNum = Integer.parseInt(split[1]);
-
-			Integer count = counts.get(split[0]);
-			if (count == null)
-				count = 0;
-			count += countNum;
-			counts.put(split[0], count);
-		}
-*/
-
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<String, Integer> e : counts.entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ":");

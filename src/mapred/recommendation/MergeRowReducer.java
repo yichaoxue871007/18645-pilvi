@@ -1,8 +1,6 @@
 package mapred.recommendation;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
