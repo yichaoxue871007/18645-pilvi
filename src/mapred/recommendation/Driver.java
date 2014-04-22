@@ -98,27 +98,27 @@ public class Driver {
 		job.run();
 	}
 	
-        /* Step old 4 UNUSED */
-	private static void getCooccurrenceColumn(String input, String output)
-			throws IOException, ClassNotFoundException, InterruptedException {
-		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-				"Get columns of co-occurrence matrix");
-
-		job.setClasses(CooccurrenceColumnMapper.class, null, null);
-		job.setMapOutputClasses(Text.class, Text.class);
-
-		job.run();
-	}
-
-        /* Step old 5 UNUSED */
-	private static void getUserVectorSplitter(String input, String output)
-			throws IOException, ClassNotFoundException, InterruptedException {
-		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-				"Compute Co-occurrence");
-
-		job.setClasses(UserVectorSplitterMapper.class, null, null);
-		job.setMapOutputClasses(Text.class, Text.class);
-
-		job.run();
-	}
+//        /* Step old 4 UNUSED */
+//	private static void getCooccurrenceColumn(String input, String output)
+//			throws IOException, ClassNotFoundException, InterruptedException {
+//		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+//				"Get columns of co-occurrence matrix");
+//
+//		job.setClasses(CooccurrenceColumnMapper.class, null, null);
+//		job.setMapOutputClasses(Text.class, Text.class);
+//
+//		job.run();
+//	}
+//
+//        /* Step old 5 UNUSED */
+//	private static void getUserVectorSplitter(String input, String output)
+//			throws IOException, ClassNotFoundException, InterruptedException {
+//		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+//				"Compute Co-occurrence");
+//
+//		job.setClasses(UserVectorSplitterMapper.class, null, null);
+//		job.setMapOutputClasses(Text.class, Text.class);
+//
+//		job.run();
+//	}
 }
