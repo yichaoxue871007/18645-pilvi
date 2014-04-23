@@ -1,3 +1,11 @@
+/*
+ * 18645 Term Project
+ * 
+ * Recommendation System Based on Hadoop MapReduce
+ * 
+ * Fangxiaoyu Feng, Andi Ni, Yichao Xue
+ */
+
 package mapred.recommendation;
 
 import java.io.IOException;

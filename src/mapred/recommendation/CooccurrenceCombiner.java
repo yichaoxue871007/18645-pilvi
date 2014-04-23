@@ -1,3 +1,12 @@
+/*
+ * 18645 Term Project
+ * 
+ * Recommendation System Based on Hadoop MapReduce
+ * 
+ * Fangxiaoyu Feng, Andi Ni, Yichao Xue
+ */
+
+
 package mapred.recommendation;
 
 import java.io.IOException;
@@ -23,8 +32,8 @@ public class CooccurrenceCombiner extends Reducer<Text, Text, Text, Text> {
 		/* still need to remove duplicate */
 		for (Text item : value) {
 			String[] split = item.toString().split(":");
-			for (int i = 0; i < split.length; i+=2){
-				int countNum = Integer.parseInt(split[i+1]);
+			for (int i = 0; i < split.length; i += 2) {
+				int countNum = Integer.parseInt(split[i + 1]);
 				Integer count = counts.get(split[i]);
 				if (count == null)
 					count = 0;

@@ -1,9 +1,16 @@
+/*
+ * 18645 Term Project
+ * 
+ * Recommendation System Based on Hadoop MapReduce
+ * 
+ * Fangxiaoyu Feng, Andi Ni, Yichao Xue
+ */
+
 package mapred.recommendation;
 
 import java.io.IOException;
 import mapred.job.Optimizedjob;
 import mapred.util.SimpleParser;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
 
@@ -21,24 +28,22 @@ public class Driver {
 		String output = parser.get("output");
 		String tmpdir = parser.get("tmpdir");
 
-		getItemVector( input,
-                               tmpdir + "/item_vector" );
+		getItemVector(input, tmpdir + "/item_vector");
 
-		gettransposedVector( tmpdir + "/item_vector",
-                                    tmpdir + "/transposed_vector" );
+		gettransposedVector(tmpdir + "/item_vector", tmpdir
+				+ "/transposed_vector");
 
-		getCooccurrence( tmpdir + "/transposed_vector",
-                                 tmpdir + "/co_occurrence" );
+		getCooccurrence(tmpdir + "/transposed_vector", tmpdir
+				+ "/co_occurrence");
 
-		mergeMatrixRow( tmpdir + "/item_vector",
-				tmpdir + "/co_occurrence",
-				tmpdir + "/merged" );
+		mergeMatrixRow(tmpdir + "/item_vector", tmpdir + "/co_occurrence",
+				tmpdir + "/merged");
 
-        getRecommendation( tmpdir + "/merged",
-                                   output );
+		getRecommendation(tmpdir + "/merged", output);
 
 	}
-        /* Step 0 */
+
+	/* Step 0 */
 	private static void getItemVector(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
@@ -49,7 +54,8 @@ public class Driver {
 
 		job.run();
 	}
-        /* Step 1 */
+
+	/* Step 1 */
 	private static void gettransposedVector(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
@@ -60,65 +66,44 @@ public class Driver {
 
 		job.run();
 	}
-        /* Step 2 */
+
+	/* Step 2 */
 	private static void getCooccurrence(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
 				"Compute Co-occurrence");
 
 		job.setClasses(CooccurrenceMapper.class, CooccurrenceReducer.class,
-				CooccurrenceCombiner.class);
+				CooccurrenceReducer.class);
 		job.setMapOutputClasses(Text.class, Text.class);
 
 		job.run();
 	}
+
 	/* Step 3 */
-	private static void mergeMatrixRow(String input, String input_1, String output)
-			throws IOException, ClassNotFoundException, InterruptedException {
+	private static void mergeMatrixRow(String input, String input_1,
+			String output) throws IOException, ClassNotFoundException,
+			InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
 				"Merge rows from Step 1 and Step 2");
 		job.addInput(input_1);
 
-		job.setClasses(MergeRowMapper.class, MergeRowReducer.class,
-				null);
+		job.setClasses(MergeRowMapper.class, MergeRowReducer.class, null);
 		job.setMapOutputClasses(Text.class, Text.class);
 
 		job.run();
 	}
 
-        /* Step 4 */
-    private static void getRecommendation(String input, String output)
-                throws IOException, ClassNotFoundException, InterruptedException {
+	/* Step 4 */
+	private static void getRecommendation(String input, String output)
+			throws IOException, ClassNotFoundException, InterruptedException {
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-                                            "Compute Recommendation matrix");
-        
-		job.setClasses(RecVectorMapper.class, RecVectorReducer.class, RecVectorCombiner.class);
+				"Compute Recommendation matrix");
+
+		job.setClasses(RecVectorMapper.class, RecVectorReducer.class,
+				RecVectorCombiner.class);
 		job.setMapOutputClasses(Text.class, Text.class);
 
 		job.run();
 	}
-	
-//        /* Step old 4 UNUSED */
-//	private static void getCooccurrenceColumn(String input, String output)
-//			throws IOException, ClassNotFoundException, InterruptedException {
-//		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-//				"Get columns of co-occurrence matrix");
-//
-//		job.setClasses(CooccurrenceColumnMapper.class, null, null);
-//		job.setMapOutputClasses(Text.class, Text.class);
-//
-//		job.run();
-//	}
-//
-//        /* Step old 5 UNUSED */
-//	private static void getUserVectorSplitter(String input, String output)
-//			throws IOException, ClassNotFoundException, InterruptedException {
-//		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
-//				"Compute Co-occurrence");
-//
-//		job.setClasses(UserVectorSplitterMapper.class, null, null);
-//		job.setMapOutputClasses(Text.class, Text.class);
-//
-//		job.run();
-//	}
 }

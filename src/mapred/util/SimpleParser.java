@@ -56,6 +56,7 @@ public class SimpleParser {
 	}
 
 	class IgnoreUnrecognizedOptionParser extends BasicParser {
+		@SuppressWarnings("rawtypes")
 		@Override
 		protected void processOption(final String arg, final ListIterator iter)
 				throws ParseException {
